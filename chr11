@@ -1,7 +1,14 @@
-#set a value because I was getting this error
-#Error: unexpected symbol in "CHR11 <- FADS1-3.HC3202_chr11.60799627"
+#Make sure that files are in the same place. With readVCF, file has to be tabixed (.vcf.gz)
+
+#set a value because I was getting this error = Error: unexpected symbol in "CHR11 <- FADS1-3.HC3202_chr11.60799627"
 CHR11 <- "FADS1-3.HC3202_chr11.60799627-62891545.vcf.gz"
+
+#Loading in data
 GENOME.class <- readVCF(CHR11,numcols=1000,tid="chr11",frompos=60799627,topos=62891545,approx=FALSE,out="",parallel=FALSE,gffpath=FALSE)
+
+#Loading in and getting neutrality stats
 GENOME.class <- neutrality.stats(GENOME.class,FAST=TRUE)
 get.neutrality(GENOME.class)[[1]]
+
+#Calculating Tajima.D specifically
 GENOME.class@Tajima.D
