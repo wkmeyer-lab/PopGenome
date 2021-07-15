@@ -29,3 +29,18 @@ get.neutrality(GENOME.class)[[1]]
 GENOME.class@Tajima.D
 #         pop 1
 #[1,] -1.849302
+
+GENOME.class <- F_ST.stats(GENOME.class)
+#nucleotide 
+#|            :            |            :            | 100 %
+#|====================================================
+#  haplotype 
+#|            :            |            :            | 100 %
+#|====================================================
+
+get.F_ST(GENOME.class)[[1]]
+#[1] NaN
+
+get.F_ST(GENOME.class,mode=FALSE,pairwise=FALSE)
+#     haplotype.F_ST nucleotide.F_ST Nei.G_ST Hudson.G_ST Hudson.H_ST Hudson.K_ST
+#[1,]            NaN             NaN      NaN         NaN         NaN         NaN
