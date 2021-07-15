@@ -1,0 +1,39 @@
+#Done on Sol so paths are different
+
+srun --partition=lts --nodes=1 --ntasks-per-node=1 --time=60 --pty /bin/bash
+module load r
+R
+.libPaths("/share/ceph/wym219group/shared/libraries/R")
+library(PopGenome)
+
+CHR12 <- "/share/ceph/wym219group/shared/data/1000Genomes/CandidateLoci/LYZ.HC3202_chr12.68348381-70354234.vcf.gz"
+GENOME.class <- readVCF(CHR12,numcols=1000,tid="chr12",frompos=68348381,topos=70354234,approx=FALSE,out="",parallel=FALSE,gffpath=FALSE)
+#vcff::open : file opened, contains 3202 samples
+#[1] "Available ContigIdentifiers (parameter tid):"
+#[1] "chr12"
+#(!!) whop_tabix::getFieldPtr : requested field 133 but only 132 present!
+#VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+#        debug info : per_row =124
+#wanted_sample[per_row]=133
+#        baseindex=9, field = 142
+#        numparsedfields=132
+#|            :            |            :            | 100 %
+#|===================================================| ;-)
+
+#Concatenate regions
+#|            :            |            :            | 100 %
+#|===================================================
+
+ GENOME.class <- neutrality.stats(GENOME.class)
+|            :            |            :            | 100 %
+|
+
+get.neutrality(GENOME.class)[[1]]
+#                     Tajima.D n.segregating.sites Rozas.R_2   Fu.Li.F   Fu.Li.D
+#68348381 - 70354234 -2.105653               61902        NA -7.539573 -19.12364
+#                    Fu.F_S Fay.Wu.H Zeng.E Strobeck.S
+#68348381 - 70354234     NA      NaN    NaN         NA
+
+GENOME.class@Tajima.D
+#         pop 1
+#[1,] -2.105653
