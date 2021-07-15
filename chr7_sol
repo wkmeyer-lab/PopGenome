@@ -1,0 +1,10 @@
+#Couldn't load in chr7 data
+
+CHR7 <- "/share/ceph/wym219group/shared/data/1000Genomes/CandidateLoci/TAS2R38.HC3202_chr7.140972631-142973773.vcf.gz"
+GENOME.class <- readVCF(CHR7,numcols=1000,tid="chr7",frompos=140972631,topos=142973773,approx=FALSE,out="",parallel=FALSE,gffpath=FALSE)
+#vcff::open : Not a VCF [(null)]!
+#VCF_open : Could not open file '/share/ceph/wym219group/shared/data/1000Genomes/CandidateLoci/TAS2R38.HC3202_chr7.140972631-142973773.vcf.gz' as tabix-indexed!
+
+GENOME.class <- neutrality.stats(GENOME.class)
+#Error in (function (classes, fdef, mtable)  :
+#  unable to find an inherited method for function ‘neutrality.stats’ for signature ‘"logical"’
