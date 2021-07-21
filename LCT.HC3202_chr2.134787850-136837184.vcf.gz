@@ -1,0 +1,26 @@
+CHR2 <- "/share/ceph/wym219group/shared/data/1000Genomes/CandidateLoci/LCT.HC3202_chr2.134787850-136837184.vcf.gz"
+
+GENOME.class <- readVCF(CHR2, numcols = 1000, tid = "chr2", frompos = 134787850, topos = 136837184, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr2"
+(!!) whop_tabix::getFieldPtr : requested field 2338 but only 2337 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =2329
+wanted_sample[per_row]=2338
+        baseindex=9, field = 2347
+        numparsedfields=2337
+Error in 1:numusedcols : NA/NaN argument
+#Data is not available or not a valid number (?)
+In addition: Warning message:
+In readVCF(CHR2, numcols = 100, tid = "chr2", frompos = 134787850,  :
+  NAs introduced by coercion
+#This error in R means some output data are missing or unavailable.
+  
+#Tested these functions to try and find the NA/NaN arguments. 
+is.na("/share/ceph/wym219group/shared/data/1000Genomes/CandidateLoci/LCT.HC3202_chr2.134787850-136837184.vcf.gz")
+[1] FALSE
+
+which(is.na("/share/ceph/wym219group/shared/data/1000Genomes/CandidateLoci/LCT.HC3202_chr2.134787850-136837184.vcf.gz"))
+integer(0)
+#Maybe calculation is trying to divide by 0 and coming out with an invalid output?
