@@ -1,0 +1,27 @@
+CHR1 <- "/share/ceph/wym219group/shared/data/1000Genomes/CandidateLoci/AMY1A-C_2A-B.HC3202_chr1.102554700-104758690.vcf.gz"
+
+GENOME.class <- readVCF(CHR1, numcols= 1000, tid="chr1", frompos=102554700, topos=104758690, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+#vcff::open : file opened, contains 3202 samples
+#[1] "Available ContigIdentifiers (parameter tid):"
+#[1] "chr1"
+#|            :            |            :            | 100 %
+#|===================================================| ;-)
+#
+#Concatenate regions
+#|            :            |            :            | 100 %
+#|===================================================| ;-)
+
+GENOME.class <- neutrality.stats(GENOME.class)
+#|            :            |            :            | 100 %
+#|
+#====================================================>
+
+get.neutrality(GENOME.class)[[1]]
+#                       Tajima.D n.segregating.sites Rozas.R_2   Fu.Li.F
+#102554700 - 104758690 -2.125427               80931        NA -8.014772
+#                        Fu.Li.D Fu.F_S Fay.Wu.H Zeng.E Strobeck.S
+#102554700 - 104758690 -20.62346     NA      NaN    NaN         NA
+
+GENOME.class@Tajima.D
+#         pop 1
+#[1,] -2.125427
