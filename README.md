@@ -8,3 +8,4 @@ FST values range from 0-1, with higher values meaning higher differentiation amo
 
 ## Tajima.D
 Often used for detecting selective sweeps.
+This test is often used to distinguish random/neutral DNA evolution vs. non-random evolution. 
