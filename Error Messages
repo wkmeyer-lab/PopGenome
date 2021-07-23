@@ -1,0 +1,81 @@
+#Empty file
+TAS2R38.HC3202_chr7.140972631-142973773.vcf.gz
+
+#NA/NaN arguments
+LCT.HC3202_chr2.134787850-136837184.vcf.gz
+GENOME.class <- readVCF(CHR2, numcols = 1000, tid = "chr2", frompos = 134787850, topos = 136837184, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr2"
+(!!) whop_tabix::getFieldPtr : requested field 2338 but only 2337 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =2329
+wanted_sample[per_row]=2338
+        baseindex=9, field = 2347
+        numparsedfields=2337
+Error in 1:numusedcols : NA/NaN argument
+#Data is not available or not a valid number (?)
+In addition: Warning message:
+In readVCF(CHR2, numcols = 100, tid = "chr2", frompos = 134787850,  :
+  NAs introduced by coercion
+
+ABCA9.HC3202_chr17.67974488-70060927.vcf.gz
+GENOME.class <- readVCF(CHR17, numcols = 1000, tid = "chr17", frompos = 67974488, topos = 70060927, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr17"
+(!!) whop_tabix::getFieldPtr : requested field 53 but only 52 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =44
+wanted_sample[per_row]=53
+        baseindex=9, field = 62
+        numparsedfields=52
+Error in 1:numusedcols : NA/NaN argument
+In addition: Warning message:
+In readVCF(CHR17, numcols = 1000, tid = "chr17", frompos = 67974488,  :
+  NAs introduced by coercion
+
+ADAM9.HC3202_chr8.37996754-40105445.vcf.gz
+GENOME.class <- readVCF(CHR8, numcols = 1000, tid = "chr8", frompos = 37996754, topos = 40105445, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr8"
+(!!) whop_tabix::getFieldPtr : requested field 1872 but only 1871 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =1863
+wanted_sample[per_row]=1872
+        baseindex=9, field = 1881
+        numparsedfields=1871
+Error in 1:numusedcols : NA/NaN argument
+In addition: Warning message:
+In readVCF(CHR8, numcols = 1000, tid = "chr8", frompos = 37996754,  :
+  NAs introduced by coercion
+
+ANAPC1.HC3202_chr2.110767640-112884193.vcf.gz
+GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/NegativeRho/ANAPC1.HC3202_chr2.110767640-112884193.vcf.gz", numcols = 1000, tid = "chr2", frompos = 110767640, topos = 112884193, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr2"
+(!!) whop_tabix::getFieldPtr : requested field 187 but only 186 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =178
+wanted_sample[per_row]=187
+        baseindex=9, field = 196
+        numparsedfields=186
+Error in 1:numusedcols : NA/NaN argument
+In addition: Warning message:
+In readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/NegativeRho/ANAPC1.HC3202_chr2.110767640-112884193.vcf.gz",  :
+  NAs introduced by coercion
+> which(is.na("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/NegativeRho/ANAPC1.HC3202_chr2.110767640-112884193.vcf.gz")
++ )
+integer(0)
+
+#Negative length vector error (?)
+ADAM2.HC3202_chr8.38743735-40838227.vcf.gz
+GENOME.class <- readVCF(CHR8, numcols = 100, tid = "chr8", frompos = 38743735, topos = 40838227, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : Not a VCF [(null)]!
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr8"
+Error in readVCF(CHR8, numcols = 100, tid = "chr8", frompos = 38743735,  :
+  negative length vectors are not allowed
+  
