@@ -70,6 +70,22 @@ In readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/Negat
 + )
 integer(0)
 
+ZPR1.HC3202_chr11.115773799-117788023.vcf.gz
+GENOME.class <- readVCF(CHR11, numcols = 1000, tid = "chr11", frompos = 115773799, topos = 117788023, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr11"
+(!!) whop_tabix::getFieldPtr : requested field 130 but only 129 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =121
+wanted_sample[per_row]=130
+        baseindex=9, field = 139
+        numparsedfields=129
+Error in 1:numusedcols : NA/NaN argument
+In addition: Warning message:
+In readVCF(CHR11, numcols = 1000, tid = "chr11", frompos = 115773799,  :
+  NAs introduced by coercion
+
 #Negative length vector error (?)
 ADAM2.HC3202_chr8.38743735-40838227.vcf.gz
 GENOME.class <- readVCF(CHR8, numcols = 100, tid = "chr8", frompos = 38743735, topos = 40838227, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
