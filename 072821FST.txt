@@ -1,0 +1,1350 @@
+login as: cit224
+    +----------------------------------------------------------------------+
+    ¦                 • MobaXterm Personal Edition v21.2 •                 ¦
+    ¦               (SSH client, X server and network tools)               ¦
+    ¦                                                                      ¦
+    ¦ ? SSH session to cit224@sol.cc.lehigh.edu                            ¦
+    ¦   • Direct SSH      :  ?                                             ¦
+    ¦   • SSH compression :  ?                                             ¦
+    ¦   • SSH-browser     :  ?                                             ¦
+    ¦   • X11-forwarding  :  ?  (remote display is forwarded through SSH)  ¦
+    ¦                                                                      ¦
+    ¦ ? For more info, ctrl+click on help or visit our website.            ¦
+    +----------------------------------------------------------------------+
+
+Last login: Wed Jul 28 09:28:19 2021 from 128.180.156.11
+System Architecture: avx2
+Processor Family: haswell
+
+Account total usage (SUs):
+wym219_123121: 10940.12555/25000.00000
+wym219_1920: 3646.74333/0
+
+[cit224@sol ~]$ srun --partition=hawkcpu --nodes=1 --ntasks-per-node=1 --time=60 --pty /bin/bash
+export TMPDIR=/share/ceph/scratch/${USER}/${SLURM_JOB_ID}
+module load r
+R
+.libPaths("/share/ceph/wym219group/shared/libraries/R")
+library(PopGenome)
+manpath: warning: $MANPATH set, ignoring /etc/man_db.conf
+System Architecture: avx512
+Processor Family: skylake
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) intel/20.0.3     2) mvapich2/2.3.4     3) python/3.8.6
+
+[cit224@hawk-a219 ~]$ export TMPDIR=/share/ceph/scratch/${USER}/${SLURM_JOB_ID}
+[cit224@hawk-a219 ~]$ module load r
+[cit224@hawk-a219 ~]$ R
+
+R version 4.0.3 (2020-10-10) -- "Bunny-Wunnies Freak Out"
+Copyright (C) 2020 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> .libPaths("/share/ceph/wym219group/shared/libraries/R")
+> library(PopGenome)
+Loading required package: ff
+Loading required package: bit
+
+Attaching package: ‘bit’
+
+The following object is masked from ‘package:base’:
+
+    xor
+
+Attaching package ff
+- getOption("fftempdir")=="/share/ceph/scratch/cit224/6062388/RtmpDkR02L/ff"
+
+- getOption("ffextension")=="ff"
+
+- getOption("ffdrop")==TRUE
+
+- getOption("fffinonexit")==TRUE
+
+- getOption("ffpagesize")==65536
+
+- getOption("ffcaching")=="mmnoflush"  -- consider "ffeachflush" if your system stalls on large writes
+
+- getOption("ffbatchbytes")==16777216 -- consider a different value for tuning your system
+
+- getOption("ffmaxbytes")==536870912 -- consider a different value for tuning your system
+
+
+Attaching package: ‘ff’
+
+The following objects are masked from ‘package:utils’:
+
+    write.csv, write.csv2
+
+The following objects are masked from ‘package:base’:
+
+    is.factor, is.ordered
+
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/ABCC3.HC3202_chr17.49634881-51692253.vcf.gz", numcols = 500, tid = "chr17", frompos = 49634881, topos = 51692253, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr17"
+(!!) whop_tabix::getFieldPtr : requested field 1147 but only 1146 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =1138
+wanted_sample[per_row]=1147
+        baseindex=9, field = 1156
+        numparsedfields=1146
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|=======================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST   Nei.G_ST Hudson.G_ST Hudson.H_ST
+[1,]     0.02264418      0.04494831 0.01545763  0.01656238  0.01679477
+     Hudson.K_ST
+[1,]    0.277051
+>
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/ABHD1.HC3202_chr2.26123815-28130812.vcf.gz", numcols = 500, tid = "chr2", frompos = 26123815, topos = 28130812, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr2"
+(!!) whop_tabix::getFieldPtr : requested field 116 but only 115 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =107
+wanted_sample[per_row]=116
+        baseindex=9, field = 125
+        numparsedfields=115
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|================================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST    Nei.G_ST Hudson.G_ST Hudson.H_ST
+[1,]    0.007094873       0.1101292 0.007569927 0.005462614 0.005332345
+     Hudson.K_ST
+[1,]   0.3232238
+>
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/ABHD16B.HC3202_chr20.62861498-64862988.vcf.gz", numcols = 500, tid = "chr20", frompos = 62861498, topos = 64862988, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr20"
+(!!) whop_tabix::getFieldPtr : requested field 3155 but only 3154 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =3146
+wanted_sample[per_row]=3155
+        baseindex=9, field = 3164
+        numparsedfields=3154
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|==========================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST    Nei.G_ST Hudson.G_ST Hudson.H_ST
+[1,]    0.002119559       0.0276205 0.005072563 0.001728249  0.00136671
+     Hudson.K_ST
+[1,]    0.264685
+>
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/AC004706.HC3202_chr17.5653464-7655009.vcf.gz", numcols = 500, tid = "chr17", frompos = 5653464, topos = 7655009, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr17"
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|====================================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST    Nei.G_ST  Hudson.G_ST Hudson.H_ST
+[1,]   0.0007163753      0.06866861 0.004367525 0.0006208011 0.000533873
+     Hudson.K_ST
+[1,]   0.2971577
+>
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/ADGRG4.HC3202_chrX.135300963-137416890.vcf.gz", numcols = 500, tid = "chrX", frompos = 135300963, topos = 137416890, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : Not a VCF [(null)]!
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chrX"
+Error in readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/ADGRG4.HC3202_chrX.135300963-137416890.vcf.gz",  :
+  negative length vectors are not allowed
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/ADRB3.HC3202_chr8.36962990-38966599.vcf.gz", numcols = 500, tid = "chr8", frompos = 36962990, topos = 38966599, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr8"
+VCF_readIntoCodeMatrix :: Malformed GT field!
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|===========================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST   Nei.G_ST Hudson.G_ST Hudson.H_ST
+[1,]    0.003546244      0.01436531 0.00578793 0.002932834 0.002513777
+     Hudson.K_ST
+[1,]   0.2541219
+>
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/ANKRD11.HC3202_chr16.88285175-90490318.vcf.gz", numcols = 500, tid = "chr16", frompos = 88285175, topos = 90490318, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr16"
+VCF_readIntoCodeMatrix :: Malformed GT field!
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|===============================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST    Nei.G_ST  Hudson.G_ST  Hudson.H_ST
+[1,]   0.0005096492      0.07298584 0.004263888 0.0004460444 0.0003847723
+     Hudson.K_ST
+[1,]   0.2990558
+>
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/ANKRD35.HC3202_chr1.144866564-146885866.vcf.gz", numcols = 500, tid = "chr1", frompos = 144866564, topos = 146885866, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr1"
+|            :            |            :            | 100 %
+|===================================================| ;-)
+
+
+Concatenate regions
+|            :            |            :            | 100 %
+|===================================================| ;-)
+
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|
+====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+^C
+> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|
+====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+^C
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/ARMC4.HC3202_chr10.26812168-28999079.vcf.gz", numcols = 500, tid = "chr10", frompos = 26812168, topos = 28999079, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr10"
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|====================================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST    Nei.G_ST Hudson.G_ST Hudson.H_ST
+[1,]    0.007675241      0.04461812 0.007859152 0.005750703 0.005707409
+     Hudson.K_ST
+[1,]   0.2664856
+>
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/ATP1A4.HC3202_chr1.159151603-161186980.vcf.gz", numcols = 500, tid = "chr1", frompos = 159151603, topos = 161186980, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
++
++ srun: error: hawk-a219: task 0: Killed
+[cit224@sol ~]$ srun --partition=hawkcpu --nodes=1 --ntasks-per-node=1 --time=60 --pty /bin/bash
+export TMPDIR=/share/ceph/scratch/${USER}/${SLURM_JOB_ID}
+module load r
+R
+.libPaths("/share/ceph/wym219group/shared/libraries/R")
+library(PopGenome)
+manpath: warning: $MANPATH set, ignoring /etc/man_db.conf
+System Architecture: avx512
+Processor Family: skylake
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) intel/20.0.3     2) mvapich2/2.3.4     3) python/3.8.6
+
+[cit224@hawk-a120 ~]$ export TMPDIR=/share/ceph/scratch/${USER}/${SLURM_JOB_ID}
+[cit224@hawk-a120 ~]$ module load r
+[cit224@hawk-a120 ~]$ R
+
+R version 4.0.3 (2020-10-10) -- "Bunny-Wunnies Freak Out"
+Copyright (C) 2020 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> .libPaths("/share/ceph/wym219group/shared/libraries/R")
+> library(PopGenome)
+Loading required package: ff
+Loading required package: bit
+
+Attaching package: ‘bit’
+
+The following object is masked from ‘package:base’:
+
+    xor
+
+Attaching package ff
+- getOption("fftempdir")=="/share/ceph/scratch/cit224/6062981/RtmpVReWab/ff"
+
+- getOption("ffextension")=="ff"
+
+- getOption("ffdrop")==TRUE
+
+- getOption("fffinonexit")==TRUE
+
+- getOption("ffpagesize")==65536
+
+- getOption("ffcaching")=="mmnoflush"  -- consider "ffeachflush" if your system stalls on large writes
+
+- getOption("ffbatchbytes")==16777216 -- consider a different value for tuning your system
+
+- getOption("ffmaxbytes")==536870912 -- consider a different value for tuning your system
+
+
+Attaching package: ‘ff’
+
+The following objects are masked from ‘package:utils’:
+
+    write.csv, write.csv2
+
+The following objects are masked from ‘package:base’:
+
+    is.factor, is.ordered
+
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/ATP1A4.HC3202_chr1.159151603-161186980.vcf.gz", numcols = 500, tid = "chr1", frompos = 159151603, topos = 161186980, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr1"
+|            :            |            :            | 100 %
+|===================================================| ;-)
+
+
+Concatenate regions
+|            :            |            :            | 100 %
+|===================================================| ;-)
+
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|
+====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+^C
+> GENOME.class <- F_ST.stats(GENOME.class)[1]
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+^C
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/BDKRB1.HC3202_chr14.95256210-97264763.vcf.gz", numcols = 500, tid = "chr14", frompos= 95256210, topos = 97264763, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr14"
+|            :            |            :            | 100 %
+|===================================================| ;-)
+
+
+Concatenate regions
+|            :            |            :            | 100 %
+|===================================================| ;-)
+
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|
+====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+^C
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/BIRC3.HC3202_chr11.101317450-103339394.vcf.gz", numcols = 500, tid = "chr11", frompos = 101317450, topos = 103339394, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr11"
+(!!) whop_tabix::getFieldPtr : requested field 2219 but only 2218 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =2210
+wanted_sample[per_row]=2219
+        baseindex=9, field = 2228
+        numparsedfields=2218
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|================================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST    Nei.G_ST Hudson.G_ST Hudson.H_ST
+[1,]    0.003698559      0.04940976 0.005856953 0.002834022 0.003145887
+     Hudson.K_ST
+[1,]   0.2784263
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/CALHM1.HC3202_chr10.102453240-104458900.vcf.gz", numcols = 500, tid = "chr10", frompos = 102453240, topos = 104458900, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr10"
+(!!) whop_tabix::getFieldPtr : requested field 1638 but only 1637 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =1629
+wanted_sample[per_row]=1638
+        baseindex=9, field = 1647
+        numparsedfields=1637
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|=======================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST    Nei.G_ST Hudson.G_ST Hudson.H_ST
+[1,]    0.009103885      0.02798231 0.008583916  0.00706657 0.006754591
+     Hudson.K_ST
+[1,]   0.2643547
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/CAMTA2.HC3202_chr17.3967997-5987675.vcf.gz", numcols = 500, tid = "chr17", frompos = 3967997, topos = 5987675, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr17"
+VCF_readIntoCodeMatrix :: Malformed GT field!
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|=================================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST    Nei.G_ST Hudson.G_ST Hudson.H_ST
+[1,]     0.01149412      0.03802674 0.009792312 0.008700329 0.008532711
+     Hudson.K_ST
+[1,]   0.2763187
+>
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/CAPN8.HC3202_chr1.222541616-224665701.vcf.gz", numcols = 500, tid = "chr1", frompos = 222541616, topos = 224665701, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr1"
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|====================================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST    Nei.G_ST Hudson.G_ST Hudson.H_ST
+[1,]     0.00183678      0.05924938 0.004928787 0.001496371 0.001386344
+     Hudson.K_ST
+[1,]   0.2880882
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/CARD14.HC3202_chr17.79170012-81209331.vcf.gz", numcols = 500, tid = "chr17", frompos = 79170012, topos = 81209331, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr17"
+(!!) whop_tabix::getFieldPtr : requested field 3204 but only 3203 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =3195
+wanted_sample[per_row]=3204
+        baseindex=9, field = 3213
+        numparsedfields=3203
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|===================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST    Nei.G_ST Hudson.G_ST Hudson.H_ST
+[1,]    0.001908662       0.0176867 0.004965217 0.001559086 0.001385131
+     Hudson.K_ST
+[1,]   0.2591841
+>
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/CCDC136.HC3202_chr7.127791968-129822130.vcf.gz", numcols = 500, tid = "chr7", frompos = 127791968, topos = 129822130, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr7"
+(!!) whop_tabix::getFieldPtr : requested field 1543 but only 1542 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =1534
+wanted_sample[per_row]=1543
+        baseindex=9, field = 1552
+        numparsedfields=1542
+Error in 1:numusedcols : NA/NaN argument
+In addition: Warning message:
+In readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/CCDC136.HC3202_chr7.127791968-129822130.vcf.gz",  :
+  NAs introduced by coercion
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/CCDC154.HC3202_chr16.434388-2444489.vcf.gz", numcols = 500, tid = "chr16", frompos = 434388, topos = 2444489, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr16"
+(!!) whop_tabix::getFieldPtr : requested field 592 but only 591 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =583
+wanted_sample[per_row]=592
+        baseindex=9, field = 601
+        numparsedfields=591
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|===============================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST    Nei.G_ST Hudson.G_ST Hudson.H_ST
+[1,]    0.002154373      0.05638543 0.005087055 0.001655632 0.001614466
+     Hudson.K_ST
+[1,]   0.2840946
+>
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/CEP126.HC3202_chr11.100915010-103001062.vcf.gz", numcols = 500, tid = "chr11", frompos = 100915010, topos = 103001062, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr11"
+VCF_readIntoCodeMatrix :: Malformed GT field!
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|==========================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST   Nei.G_ST Hudson.G_ST Hudson.H_ST
+[1,]     0.02097292      0.08600717 0.01461093  0.01649459  0.01613642
+     Hudson.K_ST
+[1,]   0.3047786
+>
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/CFAP45.HC3202_chr1.158872364-160900165.vcf.gz", numcols = 500, tid = "chr1", frompos = 158872364, topos = 160900165, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)srun: Force Terminated job 6062981
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr1"
+Error in gzfile(file, "wb") : cannot open the connection
+In addition: Warning message:
+In gzfile(file, "wb") :
+  cannot open compressed file 'SNPRObjects/12.RData', probable reason 'No such file or directory'
+>
+[1]+  Stopped                 R
+[cit224@hawk-a120 ~]$ srun: error: hawk-a120: task 0: Killed
+[cit224@sol ~]$ srun --partition=hawkcpu --nodes=1 --ntasks-per-node=1 --time=60 --pty /bin/bash
+export TMPDIR=/share/ceph/scratch/${USER}/${SLURM_JOB_ID}
+module load r
+R
+.libPaths("/share/ceph/wym219group/shared/libraries/R")
+library(PopGenome)
+manpath: warning: $MANPATH set, ignoring /etc/man_db.conf
+System Architecture: avx512
+Processor Family: skylake
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) intel/20.0.3     2) mvapich2/2.3.4     3) python/3.8.6
+
+[cit224@hawk-a120 ~]$ export TMPDIR=/share/ceph/scratch/${USER}/${SLURM_JOB_ID}
+[cit224@hawk-a120 ~]$ module load r
+[cit224@hawk-a120 ~]$ R
+
+R version 4.0.3 (2020-10-10) -- "Bunny-Wunnies Freak Out"
+Copyright (C) 2020 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> .libPaths("/share/ceph/wym219group/shared/libraries/R")
+> library(PopGenome)
+Loading required package: ff
+Loading required package: bit
+
+Attaching package: ‘bit’
+
+The following object is masked from ‘package:base’:
+
+    xor
+
+Attaching package ff
+- getOption("fftempdir")=="/share/ceph/scratch/cit224/6063458/RtmpgLNdc9/ff"
+
+- getOption("ffextension")=="ff"
+
+- getOption("ffdrop")==TRUE
+
+- getOption("fffinonexit")==TRUE
+
+- getOption("ffpagesize")==65536
+
+- getOption("ffcaching")=="mmnoflush"  -- consider "ffeachflush" if your system stalls on large writes
+
+- getOption("ffbatchbytes")==16777216 -- consider a different value for tuning your system
+
+- getOption("ffmaxbytes")==536870912 -- consider a different value for tuning your system
+
+
+Attaching package: ‘ff’
+
+The following objects are masked from ‘package:utils’:
+
+    write.csv, write.csv2
+
+The following objects are masked from ‘package:base’:
+
+    is.factor, is.ordered
+
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/CFAP45.HC3202_chr1.158872364-160900165.vcf.gz", numcols = 500, tid = "chr1", frompos = 158872364, topos = 160900165, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr1"
+|            :            |            :            | 100 %
+|===================================================| ;-)
+
+
+Concatenate regions
+|            :            |            :            | 100 %
+|===================================================| ;-)
+
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|^Z
+[1]+  Stopped                 R
+[cit224@hawk-a120 ~]$ srun --partition=hawkcpu --nodes=1 --ntasks-per-node=1 --time=60 --pty /bin/bash
+export TMPDIR=/share/ceph/scratch/${USER}/${SLURM_JOB_ID}
+module load r
+R
+.libPaths("/share/ceph/wym219group/shared/libraries/R")
+library(PopGenome)
+manpath: warning: $MANPATH set, ignoring /etc/man_db.conf
+System Architecture: avx512
+Processor Family: skylake
+[cit224@hawk-a120 ~]$ export TMPDIR=/share/ceph/scratch/${USER}/${SLURM_JOB_ID}
+[cit224@hawk-a120 ~]$ module load r
+[cit224@hawk-a120 ~]$ R
+
+R version 4.0.3 (2020-10-10) -- "Bunny-Wunnies Freak Out"
+Copyright (C) 2020 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> .libPaths("/share/ceph/wym219group/shared/libraries/R")
+> library(PopGenome)
+Loading required package: ff
+Loading required package: bit
+
+Attaching package: ‘bit’
+
+The following object is masked from ‘package:base’:
+
+    xor
+
+Attaching package ff
+- getOption("fftempdir")=="/share/ceph/scratch/cit224/6063458/Rtmp541GgQ/ff"
+
+- getOption("ffextension")=="ff"
+
+- getOption("ffdrop")==TRUE
+
+- getOption("fffinonexit")==TRUE
+
+- getOption("ffpagesize")==65536
+
+- getOption("ffcaching")=="mmnoflush"  -- consider "ffeachflush" if your system stalls on large writes
+
+- getOption("ffbatchbytes")==16777216 -- consider a different value for tuning your system
+
+- getOption("ffmaxbytes")==536870912 -- consider a different value for tuning your system
+
+
+Attaching package: ‘ff’
+
+The following objects are masked from ‘package:utils’:
+
+    write.csv, write.csv2
+
+The following objects are masked from ‘package:base’:
+
+    is.factor, is.ordered
+
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/CFAP45.HC3202_chr1.158872364-160900165.vcf.gz", numcols = 500, tid = "chr1", frompos = 158872364, topos = 160900165, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr1"
+|            :            |            :            | 100 %
+|===================================================| ;-)
+
+
+Concatenate regions
+|            :            |            :            | 100 %
+|===================================================| ;-)
+
+> GENOME.class <- neutrality.stats(GENOME.class)
+|            :            |            :            | 100 %
+|====================================================> get.neutrality(GENOME.class)[1]
+[[1]]
+                      Tajima.D n.segregating.sites Rozas.R_2   Fu.Li.F  Fu.Li.D
+158872364 - 160900165 -2.09095               33395        NA -7.533566 -19.0979
+                      Fu.F_S Fay.Wu.H Zeng.E Strobeck.S
+158872364 - 160900165     NA      NaN    NaN         NA
+
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- neutrality.stats(GENOME.class)
+|            :            |            :            | 100 %
+|====================================================> get.neutrality(GENOME.class)[1]
+[[1]]
+                        Tajima.D n.segregating.sites Rozas.R_2   Fu.Li.F
+158872364 - 160900165 -0.2994491                3769        NA -1.039039
+                        Fu.Li.D Fu.F_S Fay.Wu.H Zeng.E Strobeck.S
+158872364 - 160900165 -1.378199     NA      NaN    NaN         NA
+
+> get.neutrality(GENOME.class)[2]
+[[1]]
+                        Tajima.D n.segregating.sites Rozas.R_2    Fu.Li.F
+158872364 - 160900165 -0.2593327                4152        NA -0.5545309
+                         Fu.Li.D Fu.F_S Fay.Wu.H Zeng.E Strobeck.S
+158872364 - 160900165 -0.6854486     NA      NaN    NaN         NA
+
+> get.neutrality(GENOME.class)[3]
+[[1]]
+                       Tajima.D n.segregating.sites Rozas.R_2   Fu.Li.F
+158872364 - 160900165 0.1310613                3367        NA 0.4579199
+                        Fu.Li.D Fu.F_S Fay.Wu.H Zeng.E Strobeck.S
+158872364 - 160900165 0.5866721     NA      NaN    NaN         NA
+
+> get.neutrality(GENOME.class)[4]
+[[1]]
+                        Tajima.D n.segregating.sites Rozas.R_2    Fu.Li.F
+158872364 - 160900165 -0.6248973                4899        NA -0.8273849
+                         Fu.Li.D Fu.F_S Fay.Wu.H Zeng.E Strobeck.S
+158872364 - 160900165 -0.7785297     NA      NaN    NaN         NA
+
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+^C
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/CFAP45.HC3202_chr1.158872364-160900165.vcf.gz", numcols = 500, tid = "chr1", frompos = 158872364, topos = 160900165, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr1"
+|            :            |            :            | 100 %
+|===================================================| ;-)
+
+
+Concatenate regions
+|            :            |            :            | 100 %
+|===================================================| ;-)
+
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|^C
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/CFTR.HC3202_chr7.116480025-118668665.vcf.gz", numcols = 500, tid = "chr7", frompos = 116480025. topos = 118668665, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+Error: unexpected symbol in "GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/CFTR.HC3202_chr7.116480025-118668665.vcf.gz", numcols = 500, tid = "chr7", frompos = 1164800"
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/CFTR.HC3202_chr7.116480025-118668665.vcf.gz", numcols = 500, tid = "chr7", frompos = 116480025, topos = 118668665, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr7"
+(!!) whop_tabix::getFieldPtr : requested field 1485 but only 1484 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =1476
+wanted_sample[per_row]=1485
+        baseindex=9, field = 1494
+        numparsedfields=1484
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|==========================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST    Nei.G_ST Hudson.G_ST Hudson.H_ST
+[1,]    0.008476982      0.05081221 0.008267754 0.006263737 0.006053822
+     Hudson.K_ST
+[1,]    0.280114
+>
+>
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/COL10A1.HC3202_chr6.115118909-117126132.vcf.gz", numcols = 500, tid = "chr6", frompos = 115118909, topos = 117126132, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr6"
+(!!) whop_tabix::getFieldPtr : requested field 2928 but only 2927 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =2919
+wanted_sample[per_row]=2928
+        baseindex=9, field = 2937
+        numparsedfields=2927
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|==========================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST    Nei.G_ST Hudson.G_ST Hudson.H_ST
+[1,]     0.00539327      0.01695843 0.006715476 0.004588584 0.004402551
+     Hudson.K_ST
+[1,]   0.2533364
+>
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/CYB5D1.HC3202_chr17.6858003-8862282.vcf.gz", numcols = 500, tid = "chr17", frompos = 6858003, topos = 8862282, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr17"
+(!!) whop_tabix::getFieldPtr : requested field 1678 but only 1677 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =1669
+wanted_sample[per_row]=1678
+        baseindex=9, field = 1687
+        numparsedfields=1677
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|=============================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST    Nei.G_ST Hudson.G_ST Hudson.H_ST
+[1,]     0.00757804      0.04713717 0.007810576 0.005770197 0.005709094
+     Hudson.K_ST
+[1,]   0.2787521
+>
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/DCST1.HC3202_chr1.154033824-156050930.vcf.gz", numcols = 500, tid = "chr1", frompos = 154033824, topos = 156050930, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr1"
+(!!) whop_tabix::getFieldPtr : requested field 2445 but only 2444 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =2436
+wanted_sample[per_row]=2445
+        baseindex=9, field = 2454
+        numparsedfields=2444
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|===========================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST    Nei.G_ST Hudson.G_ST Hudson.H_ST
+[1,]    0.005740744      0.05932595 0.006888758 0.004436594  0.00426612
+     Hudson.K_ST
+[1,]   0.2877654
+>
+>
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/DISP1.HC3202_chr1.221815039-224005995.vcf.gz", numcols = 500, tid = "chr1", frompos = 221815039, topos = 224005995, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr1"
+|            :            |            :            | 100 %
+|===================================================| ;-)
+
+
+Concatenate regions
+|            :            |            :            | 100 %
+|===================================================| ;-)
+
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+^C
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/DNAH3.HC3202_chr16.19933111-22159441.vcf.gz", numcols = 500, tid = "chr16", frompos = 19933111, topos = 22159441, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr16"
+(!!) whop_tabix::getFieldPtr : requested field 2159 but only 2158 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =2150
+wanted_sample[per_row]=2159
+        baseindex=9, field = 2168
+        numparsedfields=2158
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|================================================
+> srun: Force Terminated job 6063458
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: error: Timed out waiting for job step to complete
+[cit224@sol ~]$ srun --partition=hawkcpu --nodes=1 --ntasks-per-node=1 --time=60 --pty /bin/bash
+export TMPDIR=/share/ceph/scratch/${USER}/${SLURM_JOB_ID}
+module load r
+R
+.libPaths("/share/ceph/wym219group/shared/libraries/R")
+library(PopGenome)
+manpath: warning: $MANPATH set, ignoring /etc/man_db.conf
+System Architecture: avx512
+Processor Family: skylake
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) intel/20.0.3     2) mvapich2/2.3.4     3) python/3.8.6
+
+[cit224@hawk-a120 ~]$ export TMPDIR=/share/ceph/scratch/${USER}/${SLURM_JOB_ID}
+[cit224@hawk-a120 ~]$ module load r
+[cit224@hawk-a120 ~]$ R
+
+R version 4.0.3 (2020-10-10) -- "Bunny-Wunnies Freak Out"
+Copyright (C) 2020 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> .libPaths("/share/ceph/wym219group/shared/libraries/R")
+> library(PopGenome)
+Loading required package: ff
+Loading required package: bit
+
+Attaching package: ‘bit’
+
+The following object is masked from ‘package:base’:
+
+    xor
+
+Attaching package ff
+- getOption("fftempdir")=="/share/ceph/scratch/cit224/6063990/RtmpQw2mWL/ff"
+
+- getOption("ffextension")=="ff"
+
+- getOption("ffdrop")==TRUE
+
+- getOption("fffinonexit")==TRUE
+
+- getOption("ffpagesize")==65536
+
+- getOption("ffcaching")=="mmnoflush"  -- consider "ffeachflush" if your system stalls on large writes
+
+- getOption("ffbatchbytes")==16777216 -- consider a different value for tuning your system
+
+- getOption("ffmaxbytes")==536870912 -- consider a different value for tuning your system
+
+
+Attaching package: ‘ff’
+
+The following objects are masked from ‘package:utils’:
+
+    write.csv, write.csv2
+
+The following objects are masked from ‘package:base’:
+
+    is.factor, is.ordered
+
+> GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/TopMammalGenes/PositiveRho/DNAH3.HC3202_chr16.19933111-22159441.vcf.gz", numcols = 500, tid = "chr16", frompos = 19933111, topos = 22159441, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+vcff::open : file opened, contains 3202 samples
+[1] "Available ContigIdentifiers (parameter tid):"
+[1] "chr16"
+(!!) whop_tabix::getFieldPtr : requested field 2159 but only 2158 present!
+VCF_readIntoCodeMatrix ::  Problem with reading sample's data!
+        debug info : per_row =2150
+wanted_sample[per_row]=2159
+        baseindex=9, field = 2168
+        numparsedfields=2158
+|            :            |            :            | 100 %
+|====================================================
+
+Concatenate regions
+|            :            |            :            | 100 %
+|================================================
+> myindv <- get.individuals(GENOME.class)
+> pop.1 <- myindv[[1]][1:110]
+> pop.2 <- myindv[[1]][211:370]
+> pop.3 <- myindv[[1]][371:499]
+> pop.4 <- myindv[[1]][775:887]
+> GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+|            :            |            :            | 100 %
+|====================================================> GENOME.class <- F_ST.stats(GENOME.class)
+nucleotide
+|            :            |            :            | 100 %
+|====================================================
+haplotype
+|            :            |            :            | 100 %
+|
+====================================================> get.F_ST(GENOME.class)
+     haplotype.F_ST nucleotide.F_ST    Nei.G_ST  Hudson.G_ST  Hudson.H_ST
+[1,]   0.0006695061      0.04780422 0.004343655 0.0005318423 0.0004901569
+     Hudson.K_ST
+[1,]   0.2789117
+>
+>
