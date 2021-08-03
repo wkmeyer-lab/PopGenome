@@ -1,0 +1,13 @@
+#Did this locally on RStudio
+#Imported datasheet with Tajima's D calculations for 29 genes across 4 populations.
+sheet1 <- read.csv("C:/Users/cindy/Downloads/sheet1.csv")
+
+#Calculated density for each population's Tajima's D values.
+den1 <- density(data$pop1)
+den2 <- density(data$pop2)
+den3 <- density(data$pop3)
+den4 <- density(data$pop4)
+
+#Plotted density using base R
+plot(den4, frame = FALSE, col="purple", main = "Tajima's D Distribution", xlab = "Tajima's D Values") + lines(den2, col="red") + lines(den3, col="green") + lines(den1, col = "blue")
+
