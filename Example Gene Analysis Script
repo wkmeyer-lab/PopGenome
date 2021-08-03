@@ -1,0 +1,37 @@
+#Working on Sol
+srun --partition=hawkcpu --nodes=1 --ntasks-per-node=1 --time=60 --pty /bin/bash
+export TMPDIR=/share/ceph/scratch/${USER}/${SLURM_JOB_ID}
+module load r
+R
+.libPaths("/share/ceph/wym219group/shared/libraries/R")
+library(PopGenome)
+
+#I'll use FADS1-3 for this example. Change the path, numcols, tid, position, etc accordingly for other genes.
+#Creating object GENOME.class
+GENOME.class <- readVCF("/share/ceph/wym219group/shared/data/1000Genomes/CandidateLoci/FADS1-3.HC3202_chr11.60799627-62891545.vcf.gz", numcols = 1000, tid = "chr11", frompos = 60799627, topos = 62891545, approx = FALSE, out = "", parallel = FALSE, gffpath = FALSE)
+
+#Calculate neutrality statistics for entire file
+GENOME.class <- neutrality.stats(GENOME.class)
+get.neutrality(GENOME.class)[1]
+
+#Calculating population specific neutrality statistics
+myindv <- get.individuals(GENOME.class)
+#Pop.1 = British
+pop.1 <- myindv[[1]][1:110]
+#Pop.2 = Finnish
+pop.2 <- myindv[[1]][211:370]
+#Pop.3 = Chinese
+pop.3 <- myindv[[1]][371:499]
+#Pop.3 = Puerto Rican
+pop.4 <- myindv[[1]][775:887]
+GENOME.class <- set.populations(GENOME.class,list(pop.1,pop.2,pop.3,pop.4))
+GENOME.class <- neutrality.stats(GENOME.class)
+get.neutrality(GENOME.class)[1]
+get.neutrality(GENOME.class)[2]
+get.neutrality(GENOME.class)[3]
+get.neutrality(GENOME.class)[4]
+
+#Calculate FST
+GENOME.class <- F_ST.stats(GENOME.class)
+get.F_ST(GENOME.class)
+
